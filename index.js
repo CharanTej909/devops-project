@@ -3,7 +3,7 @@ const bodyParser = require('body-parser');
 
 const app = express();
 const PORT = 8000;
-const HOST = 'http://0.0.0.0'; // Listen on all network interfaces
+const HOST = '0.0.0.0'; // Listen on all network interfaces
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
