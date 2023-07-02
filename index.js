@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 
 const app = express();
 const PORT = 8000;
+const HOST = '0.0.0.0'; // Listen on all network interfaces
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -23,7 +24,7 @@ app.post('/shorten', (req, res) => {
   urlDatabase[shortCode] = req.body.url;
 
   // Return the shortened URL to the client
-  const shortenedUrl = `http://localhost:${PORT}/${shortCode}`;
+  const shortenedUrl = `http://${req.hostname}:${PORT}/${shortCode}`;
   res.render('shortened', { shortenedUrl });
 });
 
@@ -55,6 +56,6 @@ function generateShortCode() {
 const urlDatabase = {};
 
 // Start the server
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+app.listen(PORT, HOST, () => {
+  console.log(`Server is running on ${HOST}:${PORT}`);
 });
